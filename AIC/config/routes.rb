@@ -1,5 +1,7 @@
 AIC::Application.routes.draw do
   resources :countries
+  get 'countries/:key', to: 'countries#show'
+  get 'countries/new/:key', to: 'countries#new'
 
   get "welcome/index"
   root 'welcome#index'

@@ -37,6 +37,7 @@ end
 
 group :development do
   gem 'pry-rails'
+  gem 'protected_attributes'
 end
 
 # Use ActiveModel has_secure_password
