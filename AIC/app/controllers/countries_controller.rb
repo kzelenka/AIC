@@ -1,5 +1,5 @@
 class CountriesController < ApplicationController
-  #before_action :set_country, only: [:show, :edit, :update, :destroy]
+  before_action :set_country, only: [:show, :edit, :update, :destroy]
 
   # GET /countries
   # GET /countries.json
@@ -10,11 +10,7 @@ class CountriesController < ApplicationController
   # GET /countries/:key
   # GET /countries/1.json
   def show
-    if country = Country.find_by( key: params[:key])
-      @country = country
-    else
-      redirect_to new_country_path(key: params[:key])
-    end
+    redirect_to new_country_path(key: params[:key]) unless @country
   end
 
   # GET /countries/new/:key
@@ -22,7 +18,7 @@ class CountriesController < ApplicationController
     @country = Country.new(key: params[:key])
   end
 
-  # GET /countries/1/edit
+  # GET /countries/:key/edit
   def edit
   end
 
@@ -69,7 +65,11 @@ class CountriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_country
-      @country = Country.find(params[:id])
+      if params[:key]
+        @country = Country.find_by(key: params[:key])
+      else
+        @country = Country.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

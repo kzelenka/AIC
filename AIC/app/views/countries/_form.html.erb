@@ -1,4 +1,4 @@
-<%= form_for(@country) do |f| %>
+<%= form_for(@country) do |c| %>
   <% if @country.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@country.errors.count, "error") %> prohibited this country from being saved:</h2>
@@ -12,18 +12,26 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= c.label :name %><br>
+    <%= c.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= c.label :description %><br>
+    <%= c.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :key %><br>
-    <%= f.text_field :key %>
+    <%= c.hidden_field :key %>
+  </div>
+  <%= fields_for @country.flag do |f| %>
+    <div class="field">
+      <%= f.label :flag_url %><br>
+      <%= f.text_area :url %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= c.hidden_field :key %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= c.submit %>
   </div>
 <% end %>
